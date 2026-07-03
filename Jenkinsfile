@@ -24,7 +24,7 @@ pipeline {
         }
 
 
-        //
+        // Build the application using Maven and pass the database credentials as environment variables
 
         stage('Build') {
             steps {
