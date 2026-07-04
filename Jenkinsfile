@@ -101,25 +101,24 @@ pipeline {
 
                         sshagent(['learnfi-prod-server']) {
 
-                            sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@35.171.221.218 << 'EOF'
+                            sh """
+                        ssh -o StrictHostKeyChecking=no ubuntu@35.171.221.218 '
+                            
+                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
-                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                            docker pull ekdvsampath/cicd-spring-boot-app:latest
 
-                    docker pull ekdvsampath/cicd-spring-boot-app:latest
+                            docker stop spring-boot-app || true
+                            docker rm spring-boot-app || true
 
-                    docker stop spring-boot-app || true
-                    docker rm spring-boot-app || true
+                            docker run -d --name spring-boot-app -p 8080:8080 \
+                                -e DB_USERNAME="$DB_USERNAME" \
+                                -e DB_PASSWORD="$DB_PASSWORD" \
+                                ekdvsampath/cicd-spring-boot-app:latest
 
-                    docker run -d --name spring-boot-app -p 8080:8080 \
-                        -e DB_USERNAME="$DB_USERNAME" \
-                        -e DB_PASSWORD="$DB_PASSWORD" \
-                        ekdvsampath/cicd-spring-boot-app:latest
-
-                    docker logout
-
-                    EOF
-                    '''
+                            docker logout
+                        '
+                    """
                         }
                     }
                 }
