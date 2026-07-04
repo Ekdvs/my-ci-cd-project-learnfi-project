@@ -136,22 +136,22 @@ pipeline {
 
         success {
             emailext (
-                            to: 'jevigsoft@gmail.com',
+                            to: 'ekdvsampath02@gmail.com',
                             subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                             body: """<p>Good news! The job <b>${env.JOB_NAME}</b> build <b>${env.BUILD_NUMBER}</b> succeeded.</p>""",
                             replyTo: 'noreply@learnfi.lk',
-                            from: 'noreply@learnfi.lk'
+                            from: 'ekdvsampath02@gmail.com'
                       )
         }
 
 
         failure {
             emailext (
-                            to: 'jevigsoft@gmail.com',
+                            to: 'ekdvsampath02@gmail.com',
                             subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                             body: """<p>Unfortunately, the job <b>${env.JOB_NAME}</b> build <b>${env.BUILD_NUMBER}</b> failed.</p>""",
                             replyTo: 'noreply@learnfi.lk',
-                            from: 'noreply@learnfi.lk'
+                            from: 'ekdvsampath02@gmail.com'
                       )
         }
 
