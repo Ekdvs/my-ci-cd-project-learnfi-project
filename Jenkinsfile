@@ -15,6 +15,7 @@ pipeline {
 
     tools {
         maven 'Maven 3.9.7'
+        nodejs 'NodeJS 26.4.0'
     }
 
 
