@@ -3,7 +3,7 @@ package com.jevigsoft.cicd.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Builder

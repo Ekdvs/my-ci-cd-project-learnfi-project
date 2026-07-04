@@ -7,7 +7,7 @@ import com.jevigsoft.cicd.enums.common.ActiveStatus;
 import com.jevigsoft.cicd.enums.common.UserRole;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 

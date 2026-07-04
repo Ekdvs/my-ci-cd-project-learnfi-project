@@ -6,9 +6,9 @@ import com.jevigsoft.cicd.enums.common.UserRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.Date;
 
+import java.util.Date;
+import jakarta.persistence.*;
 /**
  * @author Navishka Darshana - navishka@learnfi.lk
  * @project my-cicd-project
