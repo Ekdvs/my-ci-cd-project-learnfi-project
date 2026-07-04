@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      environment {
-            DOCKER_IMAGE = "navishkadarshana/spring-boot-app:latest"
+            DOCKER_IMAGE = "ekdvsampath/cicd-spring-boot-app:latest"
             DOCKER_CREDENTIALS_ID = "dockerhub-credentials"
             SSH_CREDENTIALS_ID = "learnfi-prod-server"
             SSH_TARGET = "ubuntu@54.254.18.85"
@@ -62,14 +62,21 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                      withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                           sh '''#!/bin/bash
-                           docker login -u $DOCKER_USER -p $DOCKER_PASS
-                           docker build -t $DOCKER_IMAGE .
-                           docker push $DOCKER_IMAGE
-                           docker logout
-                           '''
-                      }
+                    withCredentials([usernamePassword(
+                            credentialsId: 'dockerhub-credentials',
+                            usernameVariable: 'DOCKER_USER',
+                            passwordVariable: 'DOCKER_PASS'
+                    )]) {
+                        sh '''
+                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+
+                    docker build -t $DOCKER_IMAGE .
+
+                    docker push $DOCKER_IMAGE
+
+                    docker logout
+                '''
+                    }
                 }
             }
         }
