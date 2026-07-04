@@ -52,7 +52,7 @@ pipeline {
                         echo "Testing application with MySQL database"
                         export DB_USERNAME=$DB_USERNAME
                         export DB_PASSWORD=$DB_PASSWORD
-                        mvn test
+                        mvn test -Dspring.profiles.active=test
                         '''
                     }
                 }
