@@ -7,6 +7,9 @@ pipeline {
             SSH_CREDENTIALS_ID = "learnfi-prod-server"
             SSH_TARGET = "ubuntu@35.171.221.218"
             DOCKER_CONTAINER = "spring-boot-app"
+            SONARQUBE_URL = "http://35.175.73.243"
+            SONARQUBE_TOKEN = credentials('sonarqube')
+            PATH = "/usr/local/bin:$PATH"
      }
 
     tools {
@@ -54,6 +57,19 @@ pipeline {
                         export DB_PASSWORD=$DB_PASSWORD
                         mvn test -Dspring.profiles.active=test
                         '''
+                    }
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh '''#!/bin/bash
+                             echo "Starting SonarQube analysis"
+                             mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONARQUBE_TOKEN
+                             '''
                     }
                 }
             }
