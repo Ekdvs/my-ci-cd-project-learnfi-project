@@ -138,6 +138,7 @@
         <finalName>api</finalName>
 
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -151,6 +152,7 @@
                     <release>21</release>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
