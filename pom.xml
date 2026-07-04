@@ -11,7 +11,7 @@
     <groupId>com.jevigsoft.pos</groupId>
     <artifactId>my-cicd-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>my-cicd-project</name>
     <description>my-cicd-project HTTP Server</description>
 
