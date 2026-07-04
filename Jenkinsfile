@@ -5,7 +5,7 @@ pipeline {
             DOCKER_IMAGE = "ekdvsampath/cicd-spring-boot-app:latest"
             DOCKER_CREDENTIALS_ID = "dockerhub-credentials"
             SSH_CREDENTIALS_ID = "learnfi-prod-server"
-            SSH_TARGET = "ubuntu@54.254.18.85"
+            SSH_TARGET = "ubuntu@35.171.221.218"
             DOCKER_CONTAINER = "spring-boot-app"
      }
 
