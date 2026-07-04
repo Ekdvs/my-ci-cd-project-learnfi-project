@@ -24,7 +24,7 @@ pipeline {
         }
 
 
-        // Build the applicatin using Maven and pass the database credentials as environment
+        // Build theapplicatin using Maven and pass the database credentials as environment
 
         stage('Build') {
             steps {
