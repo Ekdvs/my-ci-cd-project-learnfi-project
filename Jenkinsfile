@@ -12,6 +12,7 @@ pipeline {
             PATH = "/usr/local/bin:$PATH"
      }
 
+
     tools {
         maven 'Maven 3.9.7'
     }
