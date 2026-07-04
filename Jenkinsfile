@@ -85,20 +85,35 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'learnfi-prod-database-credentials', usernameVariable: 'DB_USERNAME', passwordVariable: 'DB_PASSWORD')]) {
+
+                    withCredentials([
+                            usernamePassword(
+                                    credentialsId: 'learnfi-prod-database-credentials',
+                                    usernameVariable: 'DB_USERNAME',
+                                    passwordVariable: 'DB_PASSWORD'
+                            ),
+                            usernamePassword(
+                                    credentialsId: 'dockerhub-credentials',
+                                    usernameVariable: 'DOCKER_USER',
+                                    passwordVariable: 'DOCKER_PASS'
+                            )
+                    ]) {
+
                         sshagent(['learnfi-prod-server']) {
-                                sh '''
-                                ssh -o StrictHostKeyChecking=no $SSH_TARGET << EOF
-                                docker login -u $DOCKER_USER -p $DOCKER_PASS
-                                docker pull $DOCKER_IMAGE
-                                docker stop $DOCKER_CONTAINER || true
-                                docker rm $DOCKER_CONTAINER || true
-                                docker run -d --name $DOCKER_CONTAINER -p 8080:8080 \
-                                -e DB_USERNAME=$DB_USERNAME \
-                                -e DB_PASSWORD=$DB_PASSWORD \
-                                $DOCKER_IMAGE
-                                docker logout
-                                '''
+
+                            sh """
+                    ssh -o StrictHostKeyChecking=no ${SSH_TARGET} '
+                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin &&
+                        docker pull ${DOCKER_IMAGE} &&
+                        docker stop ${DOCKER_CONTAINER} || true &&
+                        docker rm ${DOCKER_CONTAINER} || true &&
+                        docker run -d --name ${DOCKER_CONTAINER} -p 8080:8080 \
+                            -e DB_USERNAME=${DB_USERNAME} \
+                            -e DB_PASSWORD=${DB_PASSWORD} \
+                            ${DOCKER_IMAGE} &&
+                        docker logout
+                    '
+                    """
                         }
                     }
                 }
